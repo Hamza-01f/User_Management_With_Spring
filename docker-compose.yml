@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: user_management_postgres
+    environment:
+      POSTGRES_DB: hospitaldb
+      POSTGRES_USER: hospitaluser
+      POSTGRES_PASSWORD: hospitalpass
+    ports:
+      - "1111:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hospitaluser -d hospitaldb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: user_management_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+  tomcat:
+    image: tomcat:11
+    container_name: user_management_tomcat
+    ports:
+      - "8086:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./target/User_Management_Console-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/User_Management_Console.war
+
+
+volumes:
+  postgres_data:
