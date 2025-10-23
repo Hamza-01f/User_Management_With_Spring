@@ -11,16 +11,16 @@ import java.time.LocalDateTime;
 
 public class UserRequestDTO {
 
-    private Long id;
     @NotBlank(message = " the username is required ")
     @Size(min = 4 , max = 10)
     private String name;
+    @NotBlank(message = "email filed could not be empty")
     @Email(message = "email is not valid")
     private String email;
-    @NotBlank
-    @Size(min = 4 , max = 20)
+    @NotBlank(message = "you need to enter such password")
+    @Size(min = 4 , max = 10 , message = "password must be at least 4 letters and not passing 10 chatacter")
     private String password;
-    @NotBlank
+    @NotBlank(message = "role is mondatory")
     private UserRole role;
     private Boolean isActive;
     private LocalDateTime createdAt;
@@ -34,16 +34,12 @@ public class UserRequestDTO {
         this.password = password;
         this.role = role;
         this.isActive = true;
-        this.createdAt = LocalDateTime.now();
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -63,10 +59,6 @@ public class UserRequestDTO {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {

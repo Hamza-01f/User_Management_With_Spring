@@ -17,7 +17,18 @@ public class UserResponseDTO {
 
     private Boolean isActive;
 
+    private  LocalDateTime createdAt;
+
     public UserResponseDTO() {
+    }
+
+    public UserResponseDTO(String email, String name, UserRole role, Boolean isActive, Long id , LocalDateTime createdAt) {
+        this.email = email;
+        this.name = name;
+        this.role = role;
+        this.isActive = isActive;
+        this.id = id;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -38,6 +49,14 @@ public class UserResponseDTO {
 
     public Boolean getActive() {
         return isActive;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public void setId(Long id) {
