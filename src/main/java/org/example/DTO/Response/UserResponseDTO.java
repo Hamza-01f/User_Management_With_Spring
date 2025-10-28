@@ -1,6 +1,4 @@
 package org.example.DTO.Response;
-
-import jakarta.persistence.Column;
 import org.example.Enums.UserRole;
 
 import java.time.LocalDateTime;
@@ -23,11 +21,11 @@ public class UserResponseDTO {
     }
 
     public UserResponseDTO(String email, String name, UserRole role, Boolean isActive, Long id , LocalDateTime createdAt) {
-        this.email = email;
+        this.id = id;
         this.name = name;
+        this.email = email;
         this.role = role;
         this.isActive = isActive;
-        this.id = id;
         this.createdAt = createdAt;
     }
 

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManagerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -15,14 +16,15 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "org.example")
+@EnableJpaRepositories(basePackages = "org.example.Repository")
+
 public class PersistanceConfig {
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.postgresql.Driver");
-        ds.setUrl("jdbc:postgresql://localhost:5432/hospitaldb");
+        ds.setUrl("jdbc:postgresql://db:5432/hospitaldb");
         ds.setUsername("hospitaluser");
         ds.setPassword("hospitalpass");
         return ds;
@@ -39,6 +41,7 @@ public class PersistanceConfig {
         props.put("hibernate.hbm2ddl.auto", "create-drop");
         props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         props.put("hibernate.show_sql", "true");
+        props.put("hibernate.format_sql", "true"); // Add for better SQL logging
 
         emf.setJpaProperties(props);
         return emf;

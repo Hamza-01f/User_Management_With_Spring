@@ -2,91 +2,64 @@ package org.example.Model;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.example.Enums.UserRole;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
 
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserRole role;
+
+    @Column(name = "is_active")
     private Boolean isActive;
+
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public User() {
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public User(String name, String email, String password, UserRole role, Boolean isActive) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.isActive = isActive;
-        this.createdAt = LocalDateTime.now();
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getName() {
-        return name;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getEmail() {
-        return email;
-    }
+    public UserRole getRole() { return role; }
+    public void setRole(UserRole role) { this.role = role; }
 
-    public String getPassword() {
-        return password;
-    }
+    public Boolean getIsActive() { return isActive; }
+    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
 
-    public UserRole getRole() {
-        return role;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

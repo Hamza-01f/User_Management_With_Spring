@@ -1,29 +1,27 @@
 package org.example.DTO.Request;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.example.Enums.UserRole;
 
-import java.time.LocalDateTime;
-
 public class UserRequestDTO {
 
-    @NotBlank(message = " the username is required ")
-    @Size(min = 4 , max = 10)
+    @NotBlank(message = "The username is required")
+    @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
     private String name;
-    @NotBlank(message = "email filed could not be empty")
-    @Email(message = "email is not valid")
+
+    @NotBlank(message = "Email field cannot be empty")
+    @Email(message = "Email is not valid")
     private String email;
-    @NotBlank(message = "you need to enter such password")
-    @Size(min = 4 , max = 10 , message = "password must be at least 4 letters and not passing 10 chatacter")
+
+    @NotBlank(message = "You need to enter a password")
+    @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
-    @NotBlank(message = "role is mondatory")
+
+    @NotNull(message = "Role is mandatory")
     private UserRole role;
-    private Boolean isActive;
-    private LocalDateTime createdAt;
 
     public UserRequestDTO() {
     }
@@ -33,58 +31,38 @@ public class UserRequestDTO {
         this.email = email;
         this.password = password;
         this.role = role;
-        this.isActive = true;
+    }
+
+    // Getters and setters
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getEmail() {
-        return email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public UserRole getRole() {
         return role;
     }
 
-    public Boolean getActive() {
-        return isActive;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-
-
 }
